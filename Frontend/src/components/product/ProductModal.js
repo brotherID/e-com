@@ -19,6 +19,8 @@ const ProductModal = ({ show, onHide, selectedProduct, quantity, setQuantity, on
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
             },
+        }).then((data) => {
+            return data.json();
         }).then((res)=>{
             console.log("res : "+res)
             console.log("Product added to cart successfully.");

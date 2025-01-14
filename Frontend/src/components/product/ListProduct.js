@@ -16,7 +16,8 @@ const ListProduct = () => {
   const [pageSize, setPageSize] = useState(10); 
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [quantity, setQuantity] = useState(sessionStorage.getItem('productsQuantityCart'));
+  const [quantity, setQuantity] = useState(0);
+  const [totalShoppedProduct, setTotalShoppedProduct] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   const [showCart, setShowCart] = useState(false);
@@ -24,7 +25,6 @@ const ListProduct = () => {
 
 
    useEffect(() => {
-       sessionStorage.setItem('productsQuantityCart', quantity);
       let token = sessionStorage.getItem('token');
       fetch(`http://localhost:9999/api/v1/products?nameProduct=${nameFilter}&page=${currentPage}&size=${pageSize}&inventory=${inventoryFilter}`,{
         method: "GET",
@@ -44,7 +44,30 @@ const ListProduct = () => {
             setTotalPages(resp.totalPages);
       }).catch((err) => {
             console.log(err.message);
-      }) 
+      });
+
+
+       fetch("http://localhost:9999/api/v1/products/cart-user", {
+           method: "GET",
+           headers: {
+               Authorization: `Bearer ${token}`,
+               "content-type": "application/json",
+           },
+       })
+           .then((res) => res.json())
+           .then(
+               (data) => {
+                   setTotalShoppedProduct(data.totalShoppedProduct);
+                   console.log("data  productResponses ", data.shoppedProducts);
+                   console.log("data  totalAmount ", data.totalAmount);
+               }
+           )
+           .catch((err) => {
+               console.error("Failed to fetch cart data:", err);
+           });
+
+
+
      }, [currentPage, nameFilter, inventoryFilter, pageSize,quantity])
 
 
@@ -108,7 +131,7 @@ const ListProduct = () => {
                                             transform: "translate(25%, 25%)",
                                         }}
                                     >
-                                        {sessionStorage.getItem('productsQuantityCart')}
+                                        {totalShoppedProduct}
                                     </div>
                             </Button>
 

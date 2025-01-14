@@ -73,6 +73,7 @@ public class CartServiceImpl implements CartService {
         }
         Cart cartOfAuthenticatedUser = getCartOfAuthenticatedUser();
         AddProductToCartResponse addProductToCartResponse = addProductToCard(cartOfAuthenticatedUser.getIdCart(), productToAdd.getIdProduct(), quantityRequested);
+        addProductToCartResponse.setTotalShoppedProduct(getProductsOfCartUser().getTotalShoppedProduct());
         log.info("addProductToCart()[idProduct :{}] Done", idProduct);
         return addProductToCartResponse;
     }
@@ -145,7 +146,7 @@ public class CartServiceImpl implements CartService {
         cart.setTotalAmount(totalAmount);
         cartRepository.save(cart);
         cartResponse.setTotalAmount(totalAmount);
-        log.info("total amout : " + totalAmount);
+        cartResponse.setTotalShoppedProduct(shoppedProduct.stream().map(ShoppedProduct::getQuantityRequested).reduce(0, Integer::sum));
         log.info("getProductsOfCartUser() Done");
         return cartResponse;
     }

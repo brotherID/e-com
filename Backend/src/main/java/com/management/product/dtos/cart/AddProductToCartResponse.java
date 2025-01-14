@@ -11,4 +11,5 @@ public class AddProductToCartResponse {
     private Long idCart;
     private Long idProduct;
     private Integer quantityRequested;
+    private Integer totalShoppedProduct;
 }
