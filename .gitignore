@@ -1,0 +1,67 @@
+# Frontend: React-specific
+Frontend/node_modules/
+Frontend/build/
+Frontend/.idea/
+
+# Backend: Java-specific
+Backend/target/
+
+
+
+
+# Editor directories and files
+Backend/.idea/
+.idea/
+target/
+
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.apt_generated/
+.factorypath/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Lock files
+package-lock.json
+yarn.lock
+*.lock
+
+# Coverage and test output
+/coverage/
+*.exec
+*.ec
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+
+
+# Maven-specific
+Backend/.mvn/
+
+
+
+
+
+

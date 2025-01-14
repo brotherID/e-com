@@ -1,0 +1,36 @@
+server:
+  port: 9999
+
+spring:
+    cache:
+      cache-names: products
+      caffeine:
+         spec: maximumSize=500, expireAfterAccess=60m
+    datasource:
+      driver-class-name: org.postgresql.Driver
+      password: Sar@
+      url: jdbc:postgresql://localhost:5433/db_products
+      username: postgres
+    jackson:
+      time-zone: Africa/Casablanca
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          format_sql: true
+      show-sql: true
+
+
+product:
+  inventory:
+    low:
+      stock: 10
+
+cart:
+  expiration:
+    date: 15
+
+
+
