@@ -79,20 +79,6 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    private BigDecimal calculateTotalAmountProducts(List<ShoppedProduct> shoppedProducts) {
-        return shoppedProducts.stream()
-                .map(shoppedProduct -> {
-                    BigDecimal amount = BigDecimal.ZERO;
-                    Optional<Product> productOptional = productRepository.findById(shoppedProduct.getIdProduct());
-                    if (productOptional.isPresent()) {
-                        Product product = productOptional.get();
-                        amount = product.getPriceProduct().multiply(BigDecimal.valueOf(shoppedProduct.getQuantityRequested()));
-                    }
-                    return amount;
-                })
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
     @Override
     public BigDecimal calculateTotalAmountProductsWithPromotion(List<ShoppedProduct> shoppedProducts, Optional<Promotion> promotionOptional) {
         return shoppedProducts.stream()
@@ -189,8 +175,6 @@ public class CartServiceImpl implements CartService {
         cartRepository.delete(cart);
         shoppedProductRepository.findByIdCart(cart.getIdCart())
                 .forEach(shoppedProductRepository::delete);
-
-
     }
 
 

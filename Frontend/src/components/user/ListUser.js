@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState , useContext } from "react";
+import axios from "axios";
+import {Context} from "../../App";
 
 const ListUser = () => {
-
+    const [loggedIn, setLoggedIn] = useContext(Context);
     const [users , userdatachange] = useState(null);
+     
 
-
-    useEffect(() => {
-        fetch("http://localhost:9999/api/v1/users").then((res) => {
+    /* useEffect(() => {
+        fetch("http://localhost:9999/api/v1/users")
+        .then((res) => {
             return res.json();
         }).then((resp) => {
             userdatachange(resp);
@@ -14,7 +17,22 @@ const ListUser = () => {
         }).catch((err) => {
             console.log(err.message);
         })
+    }, []) */
+
+ 
+
+    useEffect(() => {
+            axios.get("http://localhost:9999/api/v1/users")
+            .then((resp) => {
+                userdatachange(resp.data);
+                console.log("resp ", resp);
+                console.log("resp data ", resp.data);
+                console.log("loggedIn " + loggedIn);
+            }).catch((err) => {
+                console.log(err.message);
+            })
     }, [])
+
 
     return (
         <div className="container">
@@ -33,7 +51,6 @@ const ListUser = () => {
                     </thead>
 
                     <tbody>
-
                         {users &&
                             users.map(user => (
                                 <tr key={user.email}>
@@ -43,9 +60,7 @@ const ListUser = () => {
                                 </tr>
                             ))
                         }
-
                     </tbody>
-
                 </table>
             </div>
         </div>

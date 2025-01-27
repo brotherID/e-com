@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { Offcanvas , Form, Button } from 'react-bootstrap'
-import { BsBag } from "react-icons/bs"
+import React, { useState, useEffect , useContext} from 'react';
+import { Offcanvas , Form, Button } from 'react-bootstrap';
+import { BsBag } from "react-icons/bs";
 import './Cart.css';
 import { toast } from "react-toastify";
+import {Context} from "../../App";
 
 
 const Cart = ({ show, onHide }) => {
     
+    const [loggedIn, setLoggedIn] = useContext(Context);
     const [cartProducts, setCartProducts] = useState({ shoppedProducts: [] });
     const [promoCode, setPromoCode] = useState('');
     const [discountMessage, setDiscountMessage] = useState('');
@@ -26,6 +28,8 @@ const Cart = ({ show, onHide }) => {
             .then(
                 (data) => {
                  setCartProducts(data);
+                 setLoggedIn(true);
+                 console.log("loggedIn : "+loggedIn);
                  console.log("data  productResponses ", data.shoppedProducts);
                  console.log("data  totalAmount ", data.totalAmount);
                  }
@@ -47,17 +51,25 @@ const Cart = ({ show, onHide }) => {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
             },
-        })
-        .then((res)=>{    
+        }).then((res) => {
             console.log("res.status : "+res.status);
             if (res.status === 200) {
                 toast.success(`${promoCode} Promo code applied successfully!`);    
-                setDiscountMessage('Promo code applied successfully!');
-                return res.json();  
+                setDiscountMessage('Promo code applied successfully!'); 
+                return res.json();
             } else {
                 setDiscountMessage('Invalid promo code. Please try again.');
-            } 
-            console.log("res : "+res);
+            }
+            
+          })
+        .then((amount)=>{
+            console.log("amount : "+amount);
+            if(amount !== undefined){
+                setCartProducts((prev) => ({
+                    ...prev,
+                    totalAmount: amount, 
+                }));
+            }
             
         }).catch((err)=>{
             console.log(err.message)
@@ -99,7 +111,6 @@ const Cart = ({ show, onHide }) => {
                     <div className="text-end mt-3">
                     <strong>Total Amount: {cartProducts.totalAmount.toFixed(2)} DH</strong>
                     </div>
-
                     <div className="mt-3">
                         <Form.Group controlId="promoCode">
                             <Form.Label>Apply Promo Code</Form.Label>
@@ -115,9 +126,6 @@ const Cart = ({ show, onHide }) => {
                         </Button>
                         <p className="mt-2">{discountMessage}</p>
                     </div>
-                    
-
-
                 </>
                 ) : (
                         <div className="empty-cart-container">

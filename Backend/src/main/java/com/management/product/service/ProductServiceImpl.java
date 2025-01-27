@@ -1,6 +1,5 @@
 package com.management.product.service;
 
-import com.management.product.config.cache.CustomKeyGenerator;
 import com.management.product.dtos.product.ProductDetailResponse;
 import com.management.product.dtos.product.ProductRequest;
 import com.management.product.dtos.product.ProductResponse;
@@ -31,23 +30,21 @@ import static org.zalando.problem.Status.NOT_FOUND;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-//@CacheConfig(cacheNames = {"products"})
 public class ProductServiceImpl implements  ProductService{
 
     public static final String PRODUCT_NOT_FOUNDED = "product  not founded";
     public static final String DETAIL_PRODUCT_NOT_FOUNDED = "the product with id  %s not founded";
     private final ProductMapper productMapper;
     private  final ProductRepository productRepository;
-    private final CustomKeyGenerator customKeyGenerator;
 
-    //@CachePut(keyGenerator = "customKeyGenerator")
+   
     @Override
     public ProductDetailResponse createProduct(ProductRequest productRequest) {
         Product product = productMapper.toEntity(productRequest);
         return productMapper.fromEntity(productRepository.save(product));
     }
 
-    //@Cacheable(value = "products", key = "#idProduct")
+
     @Override
     public Optional<ProductDetailResponse> getProductById(Long idProduct) {
         log.info("Begin getProductById , idProduct :  {}",idProduct);
@@ -56,7 +53,7 @@ public class ProductServiceImpl implements  ProductService{
     }
 
 
-    //@CachePut(keyGenerator = "customKeyGenerator")
+
     @Override
     public ProductDetailResponse updateProductById(Long idProduct, ProductRequest productRequest) {
         log.info("Begin updateProductById , idProduct :  {} , [{}]",idProduct,productRequest.toString());
@@ -70,7 +67,6 @@ public class ProductServiceImpl implements  ProductService{
         return productMapper.fromEntity(productRepository.save(product));
     }
 
-    //@CacheEvict(value = "products", key = "#idProduct")
     @Override
     public void  removeProductById(Long idProduct) {
         Product product =  productRepository.findById(idProduct)
@@ -90,7 +86,7 @@ public class ProductServiceImpl implements  ProductService{
         return "admin@admin.com".equals(currentAuth.getName());
     }
 
-    //@Cacheable(keyGenerator = "customKeyGenerator")
+
     @Override
     public Page<ProductResponse> getProducts(String nameProduct,int page, int size, InventoryStatus inventoryStatus, boolean sortDesc) {
         Sort sort = sortDesc ? Sort.by("createdAt").descending() : Sort.by("createdAt").ascending();

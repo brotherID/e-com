@@ -56,11 +56,4 @@ public class DeleteProductByIdTest extends BaseTest{
         log.info("End deleteProductById ......  ");
 
     }
-
-
-
-
-
-
-
 }

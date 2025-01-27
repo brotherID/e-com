@@ -34,6 +34,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests((authorize) -> {
+                    authorize.requestMatchers("/graphiql").permitAll();
+                    authorize.requestMatchers("/graphql").permitAll();
                     authorize.requestMatchers("/api/authentication/**").permitAll();
                     authorize.requestMatchers("/api/v1/users/**").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/actuator/**").permitAll();

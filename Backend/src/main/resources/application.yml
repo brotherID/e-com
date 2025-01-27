@@ -21,6 +21,9 @@ spring:
           dialect: org.hibernate.dialect.PostgreSQLDialect
           format_sql: true
       show-sql: true
+    graphql:
+      graphiql:
+        enabled: true
 
 
 product:
@@ -32,5 +35,7 @@ cart:
   expiration:
     date: 15
 
-
+logging:
+  logstash:
+    enabled: false
 

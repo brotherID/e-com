@@ -33,8 +33,6 @@ public class WishlistServiceImpl implements  WishlistService{
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-
-
     @Override
     public WishListProductResponse addProductToWishlist(Long idProduct) {
         log.info("addProductToWishlist()[idProduct :{}] Begin ...", idProduct);
@@ -45,7 +43,6 @@ public class WishlistServiceImpl implements  WishlistService{
                     .withDetail(String.format(MESSAGE_DETAIL_PRODUCT_ID_NOT_EXIST, idProduct))
                     .build();
         });
-
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
         Wishlist wishlistOfAuthenticatedUser = getWishListOfAuthenticatedUser(currentAuth.getName());
         log.info("addProductToWishlist()[idProduct :{}] Done", idProduct);

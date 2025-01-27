@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState , useContext} from 'react'
 import { useNavigate } from 'react-router';
+import { Context } from "../../App";
 
 const LoginPage = () => {
-
-    const[email,emailChange]=useState("");
-    const[password,passwordChange]=useState("");
+    const [loggedIn, setLoggedIn] = useContext(Context);
+    const [email,emailChange] = useState("");
+    const [password,passwordChange] = useState("");
 
 
     const navigate=useNavigate();
@@ -27,6 +28,8 @@ const LoginPage = () => {
             .then(
                 (res)=>{
                     console.log("*** token : "+res.token); 
+                    setLoggedIn(true);
+                    console.log("loggedIn : "+loggedIn);
                     sessionStorage.setItem('token',res.token);
                     navigate('/products');
                 }
@@ -57,7 +60,7 @@ const LoginPage = () => {
                                 <div className="col-lg-12">
                                     <div className="form-group">
                                         <label>Password</label>
-                                        <input required  value={password} onChange={e=>passwordChange(e.target.value)} className="form-control"></input>
+                                        <input required type="password"  value={password} onChange={e=>passwordChange(e.target.value)} className="form-control"></input>
                                     </div>
                                 </div>
                                 <div className="col-lg-12">

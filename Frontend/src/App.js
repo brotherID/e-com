@@ -9,25 +9,29 @@ import ListProduct from './components/product/ListProduct';
 import CreateProduct from './components/product/CreateProduct';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import {createContext, useState} from 'react';
+import ParentComponent from './test/ParentComponent';
 
-
+export const Context = createContext();
 
 function App() {
-
+  const [loggedIn, setLoggedIn] = useState(true);
   return (
-   
-    <div className="App">
-        <ToastContainer />
-        <BrowserRouter>
-          <Routes>
-             <Route path="/create/product" element ={<CreateProduct />}> </Route>
-             <Route path="/products" element ={<ListProduct />}>></Route>
-             <Route path="/login" element ={<LoginPage />}> </Route>
-             <Route path="/users" element ={<ListUser />}> </Route>
-             <Route path="/create/user" element ={<CreateUser />}> </Route>
-          </Routes>
-        </BrowserRouter>
-    </div>
+      <div className="App">
+          <ToastContainer />
+          <Context.Provider value={[loggedIn, setLoggedIn]}>
+              <BrowserRouter>
+                  <Routes>
+                      <Route path="/test" element ={<ParentComponent />}> </Route>
+                      <Route path="/create/product" element ={<CreateProduct />}> </Route>
+                      <Route path="/products" element ={<ListProduct />}>></Route>
+                      <Route path="/login" element ={<LoginPage />}> </Route>
+                      <Route path="/users" element ={<ListUser />}> </Route>
+                      <Route path="/create/user" element ={<CreateUser />}> </Route>
+                  </Routes>
+              </BrowserRouter>
+          </Context.Provider>
+      </div>
   );
 }
 

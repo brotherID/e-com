@@ -1,0 +1,25 @@
+type Query {
+     users: [UserInfo]
+     userById(id: ID!):  UserInfo
+}
+
+type Mutation {
+     addUser(user: UserInfoRequest!): UserInfo
+}
+
+
+input UserInfoRequest {
+      username: String!
+      firstname: String!
+      email: String!
+      password: String!
+}
+
+
+type UserInfo{
+    id: ID!
+    username: String
+    firstname: String
+    email: String!
+    password: String!
+}

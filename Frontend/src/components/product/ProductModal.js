@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 const ProductModal = ({ show, onHide, selectedProduct, quantity, setQuantity, onConfirm }) => {
+
   
     const handleAddToCart = () => {
         if (!selectedProduct) return;
@@ -27,7 +28,6 @@ const ProductModal = ({ show, onHide, selectedProduct, quantity, setQuantity, on
             toast.success(`${selectedProduct.nameProduct} has been added to the cart!`);
             onConfirm(selectedProduct, setQuantity);
             onHide();
-            window.location.reload();
         }).catch((err)=>{
             console.log(err.message)
         })

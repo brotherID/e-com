@@ -1,9 +1,7 @@
 package com.management.product.mapper.promotion;
 
-import com.management.product.dtos.product.ProductResponse;
 import com.management.product.dtos.promotion.PromotionRequest;
 import com.management.product.dtos.promotion.PromotionResponse;
-import com.management.product.entities.product.Product;
 import com.management.product.entities.promotion.Promotion;
 import org.mapstruct.*;
 

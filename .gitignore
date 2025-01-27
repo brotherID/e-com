@@ -12,7 +12,6 @@ Backend/target/
 # Editor directories and files
 Backend/.idea/
 .idea/
-target/
 
 .vscode/
 *.iml

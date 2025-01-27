@@ -20,12 +20,16 @@ public interface ProductController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     ResponseEntity<ProductDetailResponse> addProduct(@RequestBody ProductRequest productRequest);
+
     @GetMapping(value = URI_ID_PRODUCT)
     ResponseEntity<ProductDetailResponse> getProductById(@PathVariable(name = PATH_VARIABLE_ID_PRODUCT) Long idProduct);
+
     @PatchMapping(value = URI_ID_PRODUCT)
     ResponseEntity<ProductDetailResponse> updateProductById(@PathVariable(name = PATH_VARIABLE_ID_PRODUCT) Long idProduct , @RequestBody ProductRequest productRequest);
+
     @DeleteMapping(value = URI_ID_PRODUCT)
     ResponseEntity<Void> deleteProductById(@PathVariable(name = PATH_VARIABLE_ID_PRODUCT) Long idProduct );
+
     @GetMapping(value = URI_CART_USER)
     ResponseEntity<CartResponse> getProductsOfCartUser();
     @GetMapping(value = URI_WISH_LIST)

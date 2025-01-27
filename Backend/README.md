@@ -11,5 +11,8 @@ http://localhost:9999/swagger-ui/index.html#
 #*****************************************************
 Accéder au actuator
 http://localhost:9999/actuator/health
+#*****************************************************
+Accéder à la console
+http://localhost:9999/graphiql?path=/graphql
 
 

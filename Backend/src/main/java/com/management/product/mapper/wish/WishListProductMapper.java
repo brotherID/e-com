@@ -11,8 +11,4 @@ public interface WishListProductMapper {
     @Mapping(source = "idWishlist", target = "idWishlist")
     @Mapping(source = "idProduct", target = "idProduct")
     WishListProductResponse toWishListProductResponse(WishListProduct wishListProduct);
-    @Mapping(source = "idWishListProduct", target = "idWishListProduct")
-    @Mapping(source = "idWishlist", target = "idWishlist")
-    @Mapping(source = "idProduct", target = "idProduct")
-    WishListProduct toWishListProduct(WishListProductResponse wishListProductResponse);
 }

@@ -21,54 +21,61 @@ const ListProduct = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [showCart, setShowCart] = useState(false);
-
+  
 
 
    useEffect(() => {
       let token = sessionStorage.getItem('token');
-      fetch(`http://localhost:9999/api/v1/products?nameProduct=${nameFilter}&page=${currentPage}&size=${pageSize}&inventory=${inventoryFilter}`,{
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "content-type": "application/json"
-        }
-      }).then((res) => {
-        return res.json();
-      }).then((resp) => {
-            productdatachange(resp);
-            console.log("resp ", resp);
-            console.log("total pages ", resp.totalPages);
-            console.log("total elements  ", resp.totalElements);
-            console.log("number page ", resp.pageable.pageNumber);
-            console.log("page size ", resp.pageable.pageSize);
-            setTotalPages(resp.totalPages);
-      }).catch((err) => {
-            console.log(err.message);
-      });
-
-
-       fetch("http://localhost:9999/api/v1/products/cart-user", {
-           method: "GET",
-           headers: {
-               Authorization: `Bearer ${token}`,
-               "content-type": "application/json",
-           },
-       })
-           .then((res) => res.json())
-           .then(
-               (data) => {
-                   setTotalShoppedProduct(data.totalShoppedProduct);
-                   console.log("data  productResponses ", data.shoppedProducts);
-                   console.log("data  totalAmount ", data.totalAmount);
+      if(!showModal){
+        fetch(`http://localhost:9999/api/v1/products?nameProduct=${nameFilter}&page=${currentPage}&size=${pageSize}&inventory=${inventoryFilter}`,{
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "content-type": "application/json"
+            }
+          })
+          .then(
+              (res) => { return res.json();}
+          ).then(
+              (resp) => {
+                    productdatachange(resp);
+                    console.log("resp ", resp);
+                    console.log("total pages ", resp.totalPages);
+                    console.log("total elements  ", resp.totalElements);
+                    console.log("number page ", resp.pageable.pageNumber);
+                    console.log("page size ", resp.pageable.pageSize);
+                    setTotalPages(resp.totalPages);
+              }
+          ).catch(
+              (err) => {
+                console.log(err.message);
                }
-           )
-           .catch((err) => {
-               console.error("Failed to fetch cart data:", err);
-           });
+          );
+    
+    
+           fetch("http://localhost:9999/api/v1/products/cart-user", {
+               method: "GET",
+               headers: {
+                   Authorization: `Bearer ${token}`,
+                   "content-type": "application/json",
+               },
+           })
+               .then((res) => res.json())
+               .then(
+                   (data) => {
+                       setTotalShoppedProduct(data.totalShoppedProduct);
+                       console.log("data  productResponses ", data.shoppedProducts);
+                       console.log("data  totalAmount ", data.totalAmount);
+                   }
+               )
+               .catch((err) => {
+                   console.error("Failed to fetch cart data:", err);
+               });
 
+      }
+      
 
-
-     }, [currentPage, nameFilter, inventoryFilter, pageSize,quantity])
+     }, [currentPage, nameFilter, inventoryFilter, pageSize,quantity,showModal,showCart])
 
 
 
@@ -103,9 +110,6 @@ const ListProduct = () => {
                     <div className="card-title">
                         <h2>Products</h2>
                         <nav className="navbar">
-                            {/* <button className="cart-button">
-                                🛒 Panier (0)
-                            </button> */}
                             <Cart></Cart>
 
                             <Button style={{ width: "3rem", height: "3rem", position: "relative" }}
@@ -172,40 +176,38 @@ const ListProduct = () => {
                                     <td>Action</td>
                                 </tr>
                             </thead>
-
                             <tbody>
-
-                                {products &&
-                                    products.content.map(product => (
-                                        <tr key={product.idProduct}>
-                                            <td>{product.idProduct}</td>
-                                            <td>{product.codeProduct}</td>
-                                            <td>{product.nameProduct}</td>
-                                            <td>{product.priceProduct.toFixed(2)}</td>
-                                            <td>{product.quantityProduct}</td>
-                                            <td>
-                                                <button className="btn btn-primary"  onClick={() => handleAddToCart(product)} >Add to cart</button>
-                                                   
-                                            </td>
-                                        </tr>
-                                    ))
+                                {products &&  products.content.map(  product => (
+                                                                        <tr key={product.idProduct}>
+                                                                            <td>{product.idProduct}</td>
+                                                                            <td>{product.codeProduct}</td>
+                                                                            <td>{product.nameProduct}</td>
+                                                                            <td>{product.priceProduct.toFixed(2)}</td>
+                                                                            <td>{product.quantityProduct}</td>
+                                                                            <td>
+                                                                                <button className="btn btn-primary"  onClick={() => handleAddToCart(product)} >Add to cart</button> 
+                                                                            </td>
+                                                                        </tr>
+                                                                  )
+                                                     )
                                 }
                             </tbody>
-
                         </table>
-
                         <div className="card-footer">
+                             {totalPages > 0 && (
+                                  <>
                                     <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
                                             Précédent
                                     </button>
-                                    <span>
+                                        <span>
                                             Page {currentPage + 1} sur {totalPages}
-                                    </span>
+                                        </span>
                                     <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
                                             Suivant
                                     </button>
+                                  </>
+                            )}
                         </div>
-
                  </div>   
                 </div>
             </div>
