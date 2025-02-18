@@ -3,8 +3,7 @@ package com.management.product.mapper.user;
 import com.management.product.dtos.user.UserInfoRequest;
 import com.management.product.dtos.user.UserInfoResponse;
 import com.management.product.entities.user.UserInfo;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,4 +20,7 @@ public interface UserInfoMapper {
     UserInfoResponse toUserInfoResponse(UserInfo userInfo);
 
     List<UserInfoResponse> toListUserInfoResponse(List<UserInfo> userInfos);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateEntity(@MappingTarget UserInfo userInfo, UserInfoRequest userInfoRequest);
 }

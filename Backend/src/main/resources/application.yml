@@ -1,6 +1,8 @@
 server:
   port: 9999
 
+
+
 spring:
     cache:
       cache-names: products
@@ -26,6 +28,20 @@ spring:
         enabled: true
 
 
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: localhost
+
+
+
+
+
+
+
 product:
   inventory:
     low:
@@ -38,4 +54,5 @@ cart:
 logging:
   logstash:
     enabled: false
+
 

@@ -12,7 +12,11 @@ http://localhost:9999/swagger-ui/index.html#
 Accéder au actuator
 http://localhost:9999/actuator/health
 #*****************************************************
-Accéder à la console
+Accéder à la console graqhql
 http://localhost:9999/graphiql?path=/graphql
+
+*****************************************************
+Accéder au dashboard eureka
+http://localhost:9999/
 
 

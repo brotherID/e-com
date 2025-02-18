@@ -1,19 +1,29 @@
 type Query {
-     users: [UserInfo]
-     userById(id: ID!):  UserInfo
+     users: [UserInfoResponse]
+     userById(id: ID!):  UserInfoResponse
 }
 
 type Mutation {
-     addUser(user: UserInfoRequest!): UserInfo
+     addUser(userInfoRequest: UserInfoRequest!): UserInfoResponse
+     updateUser(id: ID! , userUpdateRequest: UserInfoRequest!): UserInfoResponse
+     deleteUser(id: ID!): Boolean
 }
 
 
 input UserInfoRequest {
-      username: String!
-      firstname: String!
-      email: String!
-      password: String!
+      username: String
+      firstname: String
+      email: String
+      password: String
 }
+
+
+type UserInfoResponse{
+      username: String
+      firstname: String
+      email: String!
+}
+
 
 
 type UserInfo{

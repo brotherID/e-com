@@ -41,6 +41,17 @@ public class SecurityConfig {
                     authorize.requestMatchers(HttpMethod.GET, "/actuator/**").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll();
+                    authorize.requestMatchers(
+                            "/",                          // Racine nécessaire pour le dashboard
+                            "/eureka",                    // Page principale
+                            "/eureka/**",                 // Endpoints internes
+                            "/eureka/css/**",             // Feuilles de style
+                            "/eureka/js/**",              // Scripts JS
+                            "/eureka/images/**",          // Images du dashboard
+                            "/eureka/fonts/**",           // Polices
+                            "/actuator/health",           // Endpoint requis par Eureka
+                            "/actuator/info"              // Infos générales
+                    ).permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
         http.exceptionHandling( exception -> exception
@@ -48,6 +59,14 @@ public class SecurityConfig {
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http.csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//                .httpBasic(Customizer.withDefaults())
+//                .build();
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
