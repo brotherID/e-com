@@ -13,10 +13,12 @@ public interface UserInfoMapper {
     @Mapping(source = "firstname", target = "firstname")
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password")
+    @Mapping(source = "address", target = "address")
     UserInfo toUserInfo(UserInfoRequest userInfoRequest);
     @Mapping(source = "username", target = "username")
     @Mapping(source = "firstname", target = "firstname")
     @Mapping(source = "email", target = "email")
+    @Mapping(source = "address", target = "address")
     UserInfoResponse toUserInfoResponse(UserInfo userInfo);
 
     List<UserInfoResponse> toListUserInfoResponse(List<UserInfo> userInfos);

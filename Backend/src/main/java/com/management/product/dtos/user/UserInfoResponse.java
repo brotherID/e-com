@@ -13,4 +13,5 @@ public class UserInfoResponse {
     private String username;
     private String firstname;
     private String email;
+    private String address;
 }

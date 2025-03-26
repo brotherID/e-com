@@ -19,4 +19,5 @@ public class UserInfo  extends Auditable {
         @Column(unique = true)
         private String email;
         private String password;
+        private String address;
 }

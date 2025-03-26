@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- UserInfo -->
+    <changeSet id="001" author="sara">
+        <createTable tableName="user_info">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="firstname" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Cart -->
+    <changeSet id="002" author="sara">
+        <createTable tableName="cart">
+            <column name="id_cart" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="expiration_date" type="TIMESTAMP"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="total_amount" type="NUMERIC(19,2)"/>
+            <column name="code_promotion" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Product -->
+    <changeSet id="003" author="sara">
+        <createTable tableName="product">
+            <column name="id_product" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="code_product" type="VARCHAR(255)"/>
+            <column name="name_product" type="VARCHAR(255)"/>
+            <column name="description_product" type="VARCHAR(255)"/>
+            <column name="image_product" type="VARCHAR(255)"/>
+            <column name="category_product" type="VARCHAR(255)"/>
+            <column name="price_product" type="NUMERIC(19,2)"/>
+            <column name="quantity_product" type="INTEGER"/>
+            <column name="internal_reference_product" type="VARCHAR(255)"/>
+            <column name="shelf_id_product" type="INTEGER"/>
+            <column name="inventory_status" type="VARCHAR(255)"/>
+            <column name="rating_product" type="INTEGER"/>
+            <column name="applicable_discount" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Promotion -->
+    <changeSet id="004" author="sara">
+        <createTable tableName="promotion">
+            <column name="id_promotion" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="code_promotion" type="VARCHAR(255)"/>
+            <column name="discount_percentage" type="INTEGER"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Wishlist -->
+    <changeSet id="005" author="sara">
+        <createTable tableName="wishlist">
+            <column name="id_wishlist" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- WishlistProduct -->
+    <changeSet id="006" author="sara">
+        <createTable tableName="wishlist_product">
+            <column name="id_wishlist_product" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="id_wishlist" type="UUID"/>
+            <column name="id_product" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- ShoppedProduct -->
+    <changeSet id="007" author="sara">
+        <createTable tableName="shopped_product">
+            <column name="id_shopped_product" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="id_cart" type="BIGINT"/>
+            <column name="id_product" type="BIGINT"/>
+            <column name="quantity_requested" type="INTEGER"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
